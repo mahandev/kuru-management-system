@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Participant Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .in-campus {
+            background-color: #28a745;
+            color: white;
+        }
+        .outside-campus {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Participant Details</h1>
+        <img src="{{ url_for('get_image', participant_id=participant['_id']) }}" alt="Participant Photo">
+        <p><strong>Name:</strong> {{ participant['name'] }}</p>
+        <p><strong>Email:</strong> {{ participant['email'] }}</p>
+        <p><strong>Phone:</strong> {{ participant['phone'] }}</p>
+        <p><strong>Status:</strong> {{ participant['status'] }}</p>
+
+        <form action="/update_status/{{ participant['_id'] }}" method="post">
+            <button type="submit" name="status" value="In Campus" class="in-campus">In Campus</button>
+            <button type="submit" name="status" value="Outside Campus" class="outside-campus">Outside Campus</button>
+        </form>
+    </div>
+</body>
+</html>
