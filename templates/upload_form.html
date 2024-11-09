@@ -17,9 +17,14 @@
   <body class="dark:bg-black">
     <div class="flex flex-col justify-center items-center h-screen">
       <div
-        class="border-x border-y p-8 rounded-lg drop-shadow-lg border-slate-400 flex flex-col max-w-[500px] justify-between p-4 leading-normal"
+        class="border-x border-y p-8 rounded-lg drop-shadow-lg border-slate-400 flex flex-col max-w-[500px] justify-between p-4 leading-normal dark:bg-[#1E1E1E]"
       >
-        <form class="max-w-lg mx-auto flex flex-col gap-6 justify-between">
+        <form
+          action="/upload"
+          method="post"
+          enctype="multipart/form-data"
+          class="max-w-lg mx-auto flex flex-col gap-6 justify-between"
+        >
           <h1 class="text-4xl md:text-5xl font-extrabold dark:text-white">
             Upload Participants Details
           </h1>
@@ -33,7 +38,7 @@
                 >
                 <div class="flex">
                   <span
-                    class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-e-0 border-gray-300 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600"
+                    class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-e-0 border-gray-300 rounded-s-md dark:bg-[#282828] dark:text-gray-400 dark:border-gray-600"
                   >
                     <svg
                       class="w-4 h-4 text-gray-500 dark:text-gray-400"
@@ -48,9 +53,10 @@
                     </svg>
                   </span>
                   <input
+                    name="name"
                     type="text"
                     id="website-admin"
-                    class="rounded-none rounded-e-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="rounded-none rounded-e-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5 dark:bg-[#282828] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Your name"
                   />
                 </div>
@@ -81,9 +87,10 @@
                     </svg>
                   </div>
                   <input
+                    name="email"
                     type="text"
                     id="email-address-icon"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-[#282828] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Your email"
                   />
                 </div>
@@ -111,10 +118,11 @@
                     </svg>
                   </div>
                   <input
+                    name="phone"
                     type="text"
                     id="phone-input"
                     aria-describedby="helper-text-explanation"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-[#282828] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                     placeholder="123-456-7890"
                     required
@@ -128,16 +136,20 @@
                   >Upload file</label
                 >
                 <input
-                  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-[#282828] dark:border-gray-600 dark:placeholder-gray-400"
                   aria-describedby="user_avatar_help"
                   id="user_avatar"
                   type="file"
+                  accept="image/*"
+                  name="file"
+                  required
                 />
+                <!-- <input type="file" name="file" accept="image/*" required> -->
               </div>
             </div>
             <button
-              type="button"
-              class="text-white text-center bg-[#050708] hover:bg-[#FF5F1F] focus:bg-[#ff51f] focus:ring-1 focus:outline-none focus:ring-[#FF7F50] rounded-lg text-md px-5 py-4 text-center dark:bg-[#FF5F1F] dark:hover:bg-[#EC5800] me-2 mb-2"
+              type="submit"
+              class="text-white text-center bg-[#050708] hover:bg-[#FF5F1F] focus:bg-[#ff51f] focus:ring-1 focus:outline-none focus:ring-[#FF7F50] rounded-lg text-lg font-medium px-5 py-4 text-center dark:bg-[#FF5F1F] dark:hover:bg-[#EC5800] me-2 mb-2"
             >
               Upload Details
             </button>

@@ -4,165 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Participant Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        h1 {
-            color: #333;
-        }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            background-color: #007BFF;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-        }
-        .stat {
-            text-align: center;
-            font-size: 18px;
-        }
-        .stat h2 {
-            margin: 0;
-            font-size: 36px;
-        }
-        .search {
-            margin-top: 20px;
-        }
-        .search input {
-            padding: 10px;
-            width: calc(100% - 120px);
-            margin-right: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .search button {
-            padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .search button:hover {
-            background-color: #0056b3;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-        th {
-            background-color: #007BFF;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        img {
-            max-width: 80px;
-            border-radius: 5px;
-        }
-        .status-form {
-            display: flex;
-            align-items: center;
-        }
-        .status-form select {
-            margin-right: 10px;
-            padding: 5px;
-        }
-        .status-form button {
-            padding: 5px 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .status-form button:hover {
-            background-color: #218838;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Participant Dashboard</h1>
-            <a href="/" style="color: #007BFF; text-decoration: none;">Back to Main Page</a>
+<body class="bg-gray-100 dark:bg-[#121212] font-sans text-gray-900 dark:text-gray-100">
+
+    <div class="container max-w-6xl mx-auto my-5 p-5 bg-white dark:bg-[#1E1E1E] rounded-lg shadow-lg">
+        <div class="header flex justify-between items-center mb-5">
+            <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Participant Dashboard</h1>
+            <a href="/" class="text-blue-600 dark:text-[#BABABA] hover:underline">Back to Main Page</a>
         </div>
 
-        <div class="stats">
-            <div class="stat">
-                <h2>{{ total_participants }}</h2>
+        <div class="stats flex justify-around bg-[rgb(213,68,39)] dark:bg-[#282828] text-white p-4 rounded-lg">
+            <div class="stat text-center text-lg">
+                <h2 class="text-3xl font-bold">{{ total_participants }}</h2>
                 <p>Total Participants</p>
             </div>
-            <div class="stat">
-                <h2>{{ in_campus }}</h2>
+            <div class="stat text-center text-lg">
+                <h2 class="text-3xl font-bold">{{ in_campus }}</h2>
                 <p>In Campus</p>
             </div>
-            <div class="stat">
-                <h2>{{ outside_campus }}</h2>
+            <div class="stat text-center text-lg">
+                <h2 class="text-3xl font-bold">{{ outside_campus }}</h2>
                 <p>Outside Campus</p>
             </div>
         </div>
 
-        <div class="search">
-            <input type="text" id="search-input" placeholder="Search by name or email...">
-            <button onclick="filterParticipants()">Search</button>
+        <div class="search flex mt-5">
+            <input type="text" id="search-input" placeholder="Search by name or email..." class="flex-grow px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-[#121212]">
+            <button onclick="filterParticipants()" class="ml-2 px-4 py-2 bg-[rgb(213,68,39)] text-white rounded-lg hover:bg-[rgb(188,61,35)] focus:outline-none">Search</button>
         </div>
 
-        <table>
+        <table class="w-full mt-5 border-collapse">
             <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Status</th>
-                    <th>Photo</th>
-                    <th>Change Status</th>
+                <tr class="bg-[rgb(213,68,39)] dark:bg-[#282828] text-white">
+                    <th class="px-4 py-2">ID</th>
+                    <th class="px-4 py-2">Name</th>
+                    <th class="px-4 py-2">Email</th>
+                    <th class="px-4 py-2">Phone</th>
+                    <th class="px-4 py-2">Status</th>
+                    <th class="px-4 py-2">Photo</th>
+                    <th class="px-4 py-2">Change Status</th>
                 </tr>
             </thead>
-            <tbody id="participant-list">
+            <tbody id="participant-list" class="dark:bg-[#282828]">
                 {% for participant in participants %}
-                <tr>
-                    <td>{{ participant['_id'] }}</td>
-                    <td>{{ participant['name'] }}</td>
-                    <td>{{ participant['email'] }}</td>
-                    <td>{{ participant['phone'] }}</td>
-                    <td>{{ participant['status'] }}</td>
-                    <td>
-                        <img src="{{ url_for('get_image', participant_id=participant['_id']) }}" alt="Participant Photo">
+                <tr class="bg-white dark:bg-[#1E1E1E] border-b border-gray-200 dark:border-gray-700">
+                    <td class="px-4 py-2">{{ participant['_id'] }}</td>
+                    <td class="px-4 py-2">{{ participant['name'] }}</td>
+                    <td class="px-4 py-2">{{ participant['email'] }}</td>
+                    <td class="px-4 py-2">{{ participant['phone'] }}</td>
+                    <td class="px-4 py-2">{{ participant['status'] }}</td>
+                    <td class="px-4 py-2">
+                        <img src="{{ url_for('get_image', participant_id=participant['_id']) }}" alt="Participant Photo" class="w-20 h-20 rounded">
                     </td>
-                    <td>
-                        <form class="status-form" method="POST" action="{{ url_for('update_status', participant_id=participant['_id']) }}">
-                            <select name="status" required>
-                                <option value="In Campus" {% if participant['status'] == 'In Campus' %} selected {% endif %}>In Campus</option>
-                                <option value="Outside Campus" {% if participant['status'] == 'Outside Campus' %} selected {% endif %}>Outside Campus</option>
+                    <td class="px-4 py-2">
+                        <form class="status-form flex items-center" method="POST" action="{{ url_for('update_status', participant_id=participant['_id']) }}">
+                            <select name="status" required class="mr-2 p-1 border border-gray-300 dark:bg-[#121212] rounded bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="In Campus" {% if participant['status'] == 'In Campus' %} selected {% endif %}>Inside</option>
+                                <option value="Outside Campus" {% if participant['status'] == 'Outside Campus' %} selected {% endif %}>Outside</option>
                             </select>
-                            <button type="submit">Update</button>
+                            <button type="submit" class="px-3 py-1 bg-black dark:bg-[#D54427] text-white rounded hover:bg-[#BC3D23] focus:outline-none">Update</button>
                         </form>
                     </td>
                 </tr>
@@ -186,5 +87,6 @@
             }
         }
     </script>
+
 </body>
 </html>
