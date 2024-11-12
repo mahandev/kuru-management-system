@@ -1,54 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Added</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        h1 {
-            color: #28a745;
-        }
-        p {
-            color: #333;
-        }
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        a:hover {
-            background-color: #0056b3;
-        }
-    </style>
-    <meta http-equiv="refresh" content="5;url=/">
-</head>
-<body>
-    <div class="container">
-        <h1>User Added Successfully!</h1>
-        <p>The participant has been added to the system.</p>
-        <p>Redirecting to the main page in 5 seconds...</p>
-        <a href="/">Go to Main Page Now</a>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta http-equiv="refresh" content="5;url=/" />
+  </head>
+  <body
+    class="font-sans bg-gray-100 dark:bg-[#121212] m-0 p-0 flex items-center justify-center min-h-screen"
+  >
+    <div
+      class="flex flex-col items-center justify-center gap-4 bg-white dark:bg-[#1E1E1E] p-5 w-[400px] h-[250px] rounded-lg shadow-lg text-center"
+    >
+      <h1 class="text-green-600 text-2xl font-semibold">
+        User Added Successfully!
+      </h1>
+      <div class="dark:text-[#BABABA]">
+        <p class="text-gray-800 dark:text-[#BABABA]">
+          The participant has been added to the system.
+        </p>
+        <p class="text-gray-800 dark:text-[#BABABA]">
+          Redirecting to the main page in
+          <span id="countdown">5</span> seconds...
+        </p>
+      </div>
+
+      <a
+        href="/"
+        class="inline-block w-[200px] mt-5 px-5 py-2 bg-[#000000] dark:bg-[#D54427] dark:hover:bg-[#BC3D23] text-white rounded hover:bg-[#D54427]"
+        >Go to Main Page Now</a
+      >
     </div>
-</body>
+
+    <div class="qr hidden">
+      <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code" />
+    </div>
+
+    <script>
+      let seconds = 5;
+
+      const countdownElement = document.getElementById("countdown");
+
+      const countdownInterval = setInterval(() => {
+        seconds--;
+        countdownElement.textContent = seconds;
+
+        if (seconds === 0) {
+          clearInterval(countdownInterval);
+        }
+      }, 1000);
+    </script>
+  </body>
 </html>

@@ -1,62 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Participant Details</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        img {
-            max-width: 100%;
-            border-radius: 8px;
-        }
-        h1 {
-            color: #333;
-        }
-        button {
-            padding: 10px 15px;
-            margin: 5px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .in-campus {
-            background-color: #28a745;
-            color: white;
-        }
-        .outside-campus {
-            background-color: #dc3545;
-            color: white;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Participant Details</h1>
-        <img src="{{ url_for('get_image', participant_id=participant['_id']) }}" alt="Participant Photo">
-        <p><strong>Name:</strong> {{ participant['name'] }}</p>
-        <p><strong>Email:</strong> {{ participant['email'] }}</p>
-        <p><strong>Phone:</strong> {{ participant['phone'] }}</p>
-        <p><strong>Status:</strong> {{ participant['status'] }}</p>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 dark:bg-[#121212]">
+    <div
+      class="container mx-auto max-w-md p-6 bg-white dark:bg-[#1E1E1E] rounded-lg shadow-md"
+    >
+      <h1 class="text-2xl font-bold text-gray-800 dark:text-[#FFFFFF] mb-4">
+        Participant Details
+      </h1>
+      <img
+        src="{{ url_for('get_image', participant_id=participant['_id']) }}"
+        alt="Participant Photo"
+        class="mx-auto rounded-md mb-4"
+      />
+      <p class="text-gray-700 dark:text-[#FFFFFF] mb-2">
+        <span class="dark:text-[#BABABA]">Name:</span> {{ participant['name'] }}
+      </p>
+      <p class="text-gray-700 dark:text-[#FFFFFF] mb-2">
+        <span class="dark:text-[#BABABA]">Email:</span> {{ participant['email']
+        }}
+      </p>
+      <p class="text-gray-700 dark:text-[#FFFFFF] mb-2">
+        <span class="dark:text-[#BABABA]">Phone:</span> {{ participant['phone']
+        }}
+      </p>
+      <p class="text-gray-700 dark:text-[#FFFFFF] mb-4">
+        <span class="dark:text-[#BABABA]">Status:</span> {{
+        participant['status'] }}
+      </p>
 
-        <form action="/update_status/{{ participant['_id'] }}" method="post">
-            <button type="submit" name="status" value="In Campus" class="in-campus">In Campus</button>
-            <button type="submit" name="status" value="Outside Campus" class="outside-campus">Outside Campus</button>
-        </form>
+      <form action="/update_status/{{ participant['_id'] }}" method="post">
+        <button
+          type="submit"
+          name="status"
+          value="In Campus"
+          class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
+        >
+          In Campus
+        </button>
+        <button
+          type="submit"
+          name="status"
+          value="Outside Campus"
+          class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Outside Campus
+        </button>
+      </form>
     </div>
-</body>
+  </body>
 </html>
