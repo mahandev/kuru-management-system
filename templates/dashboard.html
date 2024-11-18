@@ -8,32 +8,36 @@
 </head>
 <body class="bg-gray-100 dark:bg-[#121212] font-sans text-gray-900 dark:text-gray-100">
 
-    <div class="container min-w-[1050px] max-w-6xl mx-auto my-5 p-5 bg-white dark:bg-[#1E1E1E] rounded-lg shadow-lg">
+    <div class="container min-w-full max-w-6xl mx-auto my-5 p-5 bg-white dark:bg-[#1E1E1E] rounded-lg shadow-lg">
+        <!-- Header -->
         <div class="header flex justify-between items-center mb-5">
             <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Participant Dashboard</h1>
             <a href="/" class="text-blue-600 dark:text-[#BABABA] hover:underline">Back to Main Page</a>
         </div>
 
-        <div class="stats flex justify-around bg-[rgb(213,68,39)] dark:bg-[#282828] text-white p-4 rounded-lg">
-            <div class="stat text-center text-lg">
+        <!-- Statistics -->
+        <div class="stats grid grid-cols-3 gap-4 bg-[rgb(213,68,39)] dark:bg-[#282828] text-white p-4 rounded-lg">
+            <div class="stat text-center">
                 <h2 class="text-3xl font-bold">{{ total_participants }}</h2>
                 <p>Total Participants</p>
             </div>
-            <div class="stat text-center text-lg">
+            <div class="stat text-center">
                 <h2 class="text-3xl font-bold">{{ in_campus }}</h2>
                 <p>In Campus</p>
             </div>
-            <div class="stat text-center text-lg">
+            <div class="stat text-center">
                 <h2 class="text-3xl font-bold">{{ outside_campus }}</h2>
                 <p>Outside Campus</p>
             </div>
         </div>
 
-        <div class="search flex mt-5">
+        <!-- Search -->
+        <div class="search mt-5 flex">
             <input type="text" id="search-input" oninput="filterParticipants()" placeholder="Search by name or email..." class="flex-grow px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-[#121212]">
             <button onclick="filterParticipants()" class="ml-2 px-4 py-2 bg-[rgb(213,68,39)] text-white rounded-lg hover:bg-[rgb(188,61,35)] focus:outline-none">Search</button>
         </div>
 
+        <!-- Participants Table -->
         <table class="w-full mt-5 border-collapse">
             <thead>
                 <tr class="bg-[rgb(213,68,39)] dark:bg-[#282828] text-white">
@@ -55,7 +59,11 @@
                     <td class="px-4 py-2">{{ participant['phone'] }}</td>
                     <td class="px-4 py-2">{{ participant['status'] }}</td>
                     <td class="px-4 py-2">
-                        <img src="{{ url_for('get_image', participant_id=participant['_id']) }}" alt="Participant Photo" class="w-20 h-20 object-cover rounded">
+                        {% if participant['_image_url'] %}
+                        <img src="{{ participant['_image_url'] }}" alt="Participant Photo" class="w-20 h-20 object-cover rounded">
+                        {% else %}
+                        <span>No Photo</span>
+                        {% endif %}
                     </td>
                     <td class="px-4 py-2">
                         <form class="status-form flex items-center" method="POST" action="{{ url_for('update_status', participant_id=participant['_id']) }}">
@@ -71,48 +79,29 @@
             </tbody>
         </table>
 
-        <nav aria-label="Page navigation example">
+        <!-- Pagination -->
+        <nav class="mt-5" aria-label="Pagination">
             <ul class="inline-flex -space-x-px text-sm">
-              <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-              </li>
-              <li>
-                <a href="#" aria-current="page" class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-              </li>
+                <li><a href="#" class="px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-l-lg">Previous</a></li>
+                <li><a href="#" class="px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">1</a></li>
+                <li><a href="#" class="px-3 py-2 bg-blue-50 dark:bg-gray-700 border border-gray-300 text-blue-600 dark:text-white">2</a></li>
+                <li><a href="#" class="px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">3</a></li>
+                <li><a href="#" class="px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-r-lg">Next</a></li>
             </ul>
-          </nav>
+        </nav>
     </div>
 
+    <!-- Search Filtering Script -->
     <script>
         function filterParticipants() {
-        const input = document.getElementById('search-input').value.toLowerCase();
-        const rows = document.getElementById('participant-list').getElementsByTagName('tr');
-        for (let i = 0; i < rows.length; i++) {
-        let name = rows[i].getElementsByTagName('td')[1].textContent.toLowerCase();
-        let email = rows[i].getElementsByTagName('td')[2].textContent.toLowerCase();
-        if (name.includes(input) || email.includes(input)) {
-            rows[i].style.display = '';
-        } else {
-            rows[i].style.display = 'none';
+            const input = document.getElementById('search-input').value.toLowerCase();
+            const rows = document.querySelectorAll('#participant-list tr');
+            rows.forEach(row => {
+                const name = row.children[1].textContent.toLowerCase();
+                const email = row.children[2].textContent.toLowerCase();
+                row.style.display = name.includes(input) || email.includes(input) ? '' : 'none';
+            });
         }
-        }
-    }
     </script>
-
 </body>
 </html>
